@@ -30,6 +30,10 @@ module.exports = {
             minimum: 2,
             default: 2,
           },
+          useAliases: {
+            type: 'boolean',
+            default: true,
+          },
         },
         additionalProperties: false,
       },
@@ -46,8 +50,9 @@ module.exports = {
     const options = ctx.options[1]
     const insensitive = (options && options.caseSensitive) === false
     const natural = Boolean(options && options.natural)
+    const useAliases = (options && !options.useAliases) === false
     const isValidOrder =
-      isValidOrders[order + (insensitive ? 'I' : '') + (natural ? 'N' : '')]
+      isValidOrders[order + (insensitive ? 'I' : '') + (natural ? 'N' : '') + (useAliases ? 'A' : '')]
     const minKeys = Number(options && options.minKeys) || 2
     // The stack to save the previous property's name for each object literals
     let stack = null
